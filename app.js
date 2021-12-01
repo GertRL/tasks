@@ -28,12 +28,28 @@ function delTask(event) {
         if(confirm('Do you really want to delete this task?')){
 
             event.target.parentElement.remove()
+            let task = (event.target.parentElement.textContent.slice(0, -1))
+            removeStorage(task)
         }
-        console.log(event.target.parentElement)
     }
-
 }
 
+// removeStorage
+function removeStorage(task) {
+    let tasks
+    if(localStorage.getItem('tasks') === null) {
+        tasks = []
+    }
+    else {
+        tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    tasks.forEach(function (taskFromLS, taskIndex){
+        if(taskFromLS === task) {
+            tasks.splice(taskIndex, 1)
+        }
+    })
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+}
 // ADD TASK FUNCTION
 
 function addTask(event) {
