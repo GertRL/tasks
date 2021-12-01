@@ -39,7 +39,7 @@ function delTask(event) {
 function addTask(event) {
     // get task value from form input
     const task = document.querySelector('#task').value
-    console.log(event.type)
+
     //get element from document object
     const taskList = document.querySelector('ul');
     //create element to DOM
@@ -61,8 +61,26 @@ function addTask(event) {
     li.appendChild(link)
     //ADD LI TO TASK LIST
     taskList.appendChild(li)
+    // save task to local storage
+    taskStorage(task)
     //clear form input value
     document.querySelector('#task').value = ''
     event.preventDefault()
+
+}
+
+
+// local storage funktsioon
+function  taskStorage(task){
+
+    let tasks
+    if(localStorage.getItem('tasks') === null) {
+        tasks = []
+    }
+    else {
+       tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    tasks.push(task)
+    localStorage.setItem('tasks', JSON.stringify(tasks))
 
 }
