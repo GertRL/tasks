@@ -19,6 +19,41 @@ function delTasks() {
     removeAllStorage()
 }
 
+
+// page reload
+
+document.addEventListener('DOMContentLoaded', getTasks)
+function getTasks() {
+    let tasks
+    if(localStorage.getItem('tasks') === null) {
+        tasks = []
+    }
+    else {
+        tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+    // for each task in tasks - create li and add to taskList
+    tasks.forEach(function (taskFromLS){
+        const li = document.createElement('li')
+        // ADD CSS CLASS
+        li.className = 'collection-item'
+        // add text to element
+        const text = document.createTextNode(taskFromLS)
+        li.appendChild(text)
+        // crete link
+        const link = document.createElement('a')
+        // add css style
+        link.className = 'secondary-content'
+        // add text
+        link.appendChild(document.createTextNode('X'))
+        // add href attribute
+        link.setAttribute('href' , '#')
+        // add link to li
+        li.appendChild(link)
+        //ADD LI TO TASK LIST
+        taskList.appendChild(li)
+    })
+}
+
 // remove all items from local storage
 function removeAllStorage() {
     localStorage.removeItem('tasks')
@@ -104,3 +139,4 @@ function  taskStorage(task){
     localStorage.setItem('tasks', JSON.stringify(tasks))
 
 }
+
