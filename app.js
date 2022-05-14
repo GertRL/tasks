@@ -94,7 +94,7 @@ function removeStorage(task) {
 function addTask(event) {
     // get task value from form input
     const task = document.querySelector('#task').value
-
+    console.log(task)
     //get element from document object
     const taskList = document.querySelector('ul');
     //create element to DOM
